@@ -1,0 +1,63 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/layout.xhtml">
+
+    <ui:define name="content">
+
+        <h4>
+            <h:outputText value="#{msg['donation.header']}" />
+        </h4>
+        <h5>
+            <h:outputText value="#{eventSelectionController.selectedEvent.name}" />
+        </h5>
+
+        <p:dataTable id="donatorTable" widgetVar="donator-table"
+                     value="#{donatorOverviewController.donators}" var="donator"
+                     paginatorAlwaysVisible="false"
+                     paginatorTemplate="#{msg['misc.paginator.template']}"
+                     currentPageReportTemplate="#{msg['misc.paginator.report']}"
+                     rowIndexVar="idx">
+            <p:column width="20">
+                <p:rowToggler />
+            </p:column>
+            <p:column headerText="#{msg['donator.name']}">
+                <h:outputText value="#{donator.name}" />
+            </p:column>
+            <p:column headerText="#{msg['donator.totalDonationAmount']}" width="180" style="text-align: right">
+                <h:outputText value="€"/>
+                <h:outputText value="#{donatorOverviewController.getDonationTotalForDonator(donator)}" />
+            </p:column>
+            <p:rowExpansion>
+                <p:dataTable id="donationTable" widgetVar="donation-Table"
+                             value="#{donatorOverviewController.loadDonationsForDonator(donator)}" var="donation"
+                             paginator="false"
+                             rowIndexVar="index"> 
+                    <p:column styleClass="rowToggler" exportable="false"
+                              width="20" toggleable="false" >
+                        <p:rowToggler />
+                    </p:column>
+                    
+                    <p:column headerText="#{msg['donation.timestamp']}">
+                        <h:outputText value="#{donation.donationDate}">
+                            <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="#{msg['donation.amount']}">
+                        <h:outputText value="€#{donation.amount}" />
+                    </p:column>
+                    <p:rowExpansion>
+                        <p>
+                            <h:outputText value="#{msg['Donation.comment']}:" />
+                        </p>
+                        <p>
+                            <h:outputText value="#{donation.message}" />
+                        </p>
+                    </p:rowExpansion>
+                </p:dataTable>
+            </p:rowExpansion>
+        </p:dataTable>
+    </ui:define>
+
+</ui:composition>

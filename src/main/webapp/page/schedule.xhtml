@@ -1,0 +1,45 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/layout.xhtml">
+
+    <ui:define name="content">
+        <h4>
+            <h:outputText value="#{msg['game.schedule.header']}" />
+        </h4>
+        <h5>
+            <h:outputText value="#{eventSelectionController.selectedEvent.name}" />
+        </h5>
+        <p:tabView rendered="#{loginBean.loggedIn}" id="tabs">
+            <p:tab title="Game-Liste">
+                <h:form prependId="false" id="scheduleForm">
+                    <p:commandButton process="@this" update=":tabs"
+                                     partialSubmit="true" action="#{gameOverviewController.addGame()}"
+                                     rendered="#{loginBean.loggedIn}" 
+                                     value="#{msg['control.new']}"/>
+                    <ui:include src="/page/tmpl/scheduletable.xhtml"/>
+                    <p:commandButton process="@this" update=":tabs"
+                                     partialSubmit="true" action="#{gameOverviewController.saveAllGames()}"
+                                     rendered="#{loginBean.loggedIn}" 
+                                     value="#{msg['control.save']}" style="float: right"/>
+                    <p:spacer height="30"/>
+                </h:form>
+            </p:tab>
+            <p:tab title="Game-Order">
+                <h:form prependId="false" id="orderForm">
+               <p:orderList id="orderList" value="#{gameOverviewController.eventSchedule}" var="game"
+                            itemValue="#{game}" itemLabel="#{gameOverviewController.getGameLabel(game)}" converter="#{gameConverter}"/>
+               <p:commandButton update=":tabs"
+                                     partialSubmit="true" action="#{gameOverviewController.saveAllGames()}"
+                                     rendered="#{loginBean.loggedIn}" 
+                                     value="#{msg['control.save']}" style="float: right"/>
+                    <p:spacer height="30"/>
+                </h:form>
+            </p:tab>
+        </p:tabView>
+        <h:panelGroup layout="block" rendered="#{!loginBean.loggedIn}">
+            <ui:include src="/page/tmpl/scheduletable.xhtml" />
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>

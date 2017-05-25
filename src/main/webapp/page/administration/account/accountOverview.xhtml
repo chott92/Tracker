@@ -1,0 +1,49 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/layout.xhtml">
+
+    <ui:define name="content">
+
+        <h4>
+            <h:outputText value="#{msg['nav.administration.account']}" />
+        </h4>
+
+        <h:form>
+            <p:commandButton value="#{msg['control.new']}" ajax="false" action="/page/administration/account/account.xhtml" />
+            <p:dataTable id="accountTable" widgetVar="account-table"
+                         value="#{accountOverviewController.accounts}" var="account"
+                         paginator="true" rows="25" paginatorPosition="bottom"
+                         paginatorAlwaysVisible="false"
+                         paginatorTemplate="#{msg['misc.paginator.template']}"
+                         currentPageReportTemplate="#{msg['misc.paginator.report']}"
+                         rowIndexVar="idx">
+                <p:column headerText="#{msg['account.name']}">
+                    <h:outputText value="#{account.username}" />
+                </p:column>
+                <p:column headerText="#{msg['account.lastLogin']}">
+                    <h:outputText value="#{account.lastLogin}">
+                        <f:convertDateTime pattern="dd.MM.yyyy hh:mm:ss"/>
+                    </h:outputText>
+                </p:column>
+                <p:column style="width:300px;">
+                    <p:commandButton value="#{msg['control.edit']}" ajax="false" action="/page/administration/account/account.xhtml">
+                        <f:param name="accountId" value="#{account.id}"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{msg['control.delete']}" action="#{accountOverviewController.deleteAccount(account)}"
+                                     update="accountTable" rendered="#{not loginBean.isCurrentUser(account)}">
+                        <p:confirm header="#{msg['account.deleteHeader']}" message="#{msg['account.deleteMessage']}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+
+
+        </h:form>
+        <p:confirmDialog global="true">
+            <p:commandButton value="#{msg['misc.yes']}" type="button" styleClass="ui-confirmdialog-yes" />
+            <p:commandButton value="#{msg['misc.no']}" type="button" styleClass="ui-confirmdialog-no" />
+        </p:confirmDialog>
+    </ui:define>
+
+</ui:composition>

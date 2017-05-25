@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="mainmenuform">
+        <p:menubar>
+            <p:menuitem value="#{msg['nav.home']}" ajax="false"
+                        url="/page/home.xhtml?faces-redirect=true"/>
+            
+            <p:menuitem value="#{msg['nav.donationOverview']}" ajax="false"
+                        url="/page/donations.xhtml?eventId=#{eventSelectionController.selectedEvent.id}" rendered="#{eventSelectionController.eventSelected}"/>
+            <p:menuitem value="#{msg['nav.donatorOverview']}" ajax="false"
+                        url="/page/donators.xhtml?eventId=#{eventSelectionController.selectedEvent.id}" rendered="#{eventSelectionController.eventSelected}"/>
+            <p:menuitem value="#{msg['nav.incentiveOverview']}" ajax="false"
+                        url="/page/incentives.xhtml?eventId=#{eventSelectionController.selectedEvent.id}" rendered="#{eventSelectionController.eventSelected}"/>
+            <p:menuitem value="#{msg['nav.schedule']}" ajax="false"
+                        url="/page/schedule.xhtml?eventId=#{eventSelectionController.selectedEvent.id}" rendered="#{eventSelectionController.eventSelected}"/>
+            <p:menuitem value="#{msg['nav.donate']}" ajax="false"
+                        url="/page/donate.xhtml?eventId=#{eventSelectionController.selectedEvent.id}" rendered="#{eventSelectionController.eventSelected and eventController.selectedEvent.eventStatus == 'ACTIVE'}"/> 
+            
+            <p:submenu label="#{loginBean.username}"
+                       styleClass="ui-menuitem-right" rendered="#{loginBean.loggedIn}">
+                <p:menuitem value="#{msg['nav.account.editProfile']}" ajax="false" 
+                            url="/page/administration/changePassword.xhtml?faces-redirect=true">
+                    <f:param name="accountId" value="#{loginBean.currentUser.id}" />
+                </p:menuitem>
+                <p:menuitem value="#{msg['nav.administration.account']}" ajax="false"
+                            url="/page/administration/account/accountOverview.xhtml?faces-redirect=true" rendered="#{loginBean.superAdmin}" />
+                <p:separator />
+                
+                <p:menuitem value="#{msg['nav.eventAdministration']}" ajax="false"
+                            url="/page/administration/eventOverview.xhtml?faces-redirect=true"/>
+                
+                <p:menuitem value="#{msg['nav.incentiveOverview']}" ajax="false"
+                            url="/page/administration/incentiveOverview.xhtml?faces-redirect=true"/>
+                <p:menuitem value="#{msg['incentive.assign.header']}" ajax="false"
+                            url="/page/administration/incentiveAssignOverview.xhtml?faces-redirect=true"/>
+                
+                <p:separator />
+                <p:menuitem id="mainmenu_logout"
+                            value="#{msg['login.logout']}" icon="ui-icon-unlocked"
+					action="#{loginBean.logout()}" ajax="false" />
+            </p:submenu>
+        </p:menubar>
+    </h:form>
+</ui:composition>

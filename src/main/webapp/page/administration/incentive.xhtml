@@ -1,0 +1,115 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/layout.xhtml">
+
+    <ui:define name="content">
+        <h4>
+            <h:outputText value="#{msg['incentive.editHeader']}" />
+        </h4>
+
+        <h:form prependId="false" id="incentiveForm">
+            <p:panelGrid styleClass="smallUploadForm">
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['incentive.name']}*"/>
+                    </p:column>
+                    <p:column>
+                        <p:inputText value="#{incentiveController.incentive.incentiveName}"
+                                     required="true"
+                                     requiredMessage="#{msg['required.incentive.name']}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['incentive.game']}*" />
+                    </p:column>
+                    <p:column>
+                        <p:autoComplete id="gameComplete" 
+                                        value="#{incentiveController.incentive.game}"
+                                        completeMethod="#{incentiveController.completeGames}"
+                                        var="game" itemLabel="#{incentiveController.getGameLabel(game)}" itemValue="#{game}"
+                                        converter="#{gameConverter}" forceSelection="true" immediate="false"
+                                        dropdown="true"
+                                        required="true"
+                                        requiredMessage="#{msg['required.incentive.game']}"
+                                        maxResults="15" />
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['incentive.description']}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText value="#{incentiveController.incentive.description}" />
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['incentive.incentiveType']}*"  />
+                    </p:column>
+                    <p:column>
+                        <p:selectOneMenu value="#{incentiveController.incentive.incentiveType}"
+                                         disabled="#{incentiveController.editView}"
+                                         required="true"
+                                         requiredMessage="#{msg['required.incentive.type']}">
+                            <f:selectItem noSelectionOption="true" itemLabel="#{msg['misc.choose']}" itemValue="#{null}" />
+                            <f:selectItems value="#{incentiveController.incentiveTypes}" var="it" 
+                                           itemLabel="#{it.type}" itemValue="#{it}" />
+                            <p:ajax event="itemSelect" update="incentiveForm" process="@form" partialSubmit="true" />
+                        </p:selectOneMenu>
+                    </p:column>
+                </p:row>
+                <p:row rendered="#{incentiveController.incentive.incentiveType == 'INCENTIVE'}">
+                    <p:column>
+                        <h:outputText value="#{msg['incentive.goal']}*"/> 
+                    </p:column>
+                    <p:column>
+                        <p:inputText type="number" value="#{incentiveController.incentive.targetAmount}"
+                                     required="true"
+                                     requiredMessage="#{msg['required.incentive.target']}"/>
+                    </p:column>
+                </p:row>
+                <p:row rendered="#{incentiveController.incentive.incentiveType == 'STAITC_BID_WAR'}">
+                    <p:column colspan="2">
+                        <h:outputText value="#{msg['incentive.incentiveValues']}" />
+                        <p:commandButton process="@this" partialSubmit="true"
+                                         action="#{incentiveController.addIncentiveValue()}" 
+                                         update="incentiveValueTable"
+                                         value="#{msg['control.new']}"/>
+                        <p:dataTable id="incentiveValueTable"
+                                     widgetVar="incentive-value-table"
+                                     value="#{incentiveController.incentiveValues}"
+                                     var="iv"
+                                     rowIndexVar="idx" editMode="cell" editable="true">
+                            <p:column headerText="#{msg['incentive.name']}">
+                                <p:cellEditor>
+                                    <f:facet name="input"><p:inputText value="#{iv.value}"/></f:facet>
+                                    <f:facet name="output"><h:outputText value="#{iv.value}"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton process="@this" partialSubmit="true"
+                                                 value="#{msg['control.delete']}"
+                                                 action="#{incentiveController.removeIncentiveValue(iv)}"
+                                                 update="incentiveValueTable" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="2" styleClass="formButtons">
+                        <h:outputText value="#{msg['misc.required']}" />
+                        <p:spacer width="20" />
+                        <p:commandButton action="#{incentiveController.saveIncentive()}" value="#{msg['control.save']}" ajax="false" />
+                        <p:commandButton action="#{incentiveController.cancel()}" 
+                                         ajax="false" value="#{msg['control.cancel']}" 
+                                         process="@none" immediate="true"/>
+
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,61 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/layout.xhtml">
+                    
+    <ui:define name="content">
+        <h4>
+            <h:outputText value="#{msg['app.title']}" />
+        </h4>
+        <h:form prependId="false" >
+        <p:dataGrid columns="3" value="#{eventOverviewController.eventList}" var="event" emptyMessage="#{msg['main.noEvents']}">
+            <p:panel header="#{event.name}">
+                <p:panelGrid>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="#{msg['main.eventCharity']}" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{event.charityName}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="#{msg['main.charityHomepage']}" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{event.charityHomePage}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="#{msg['main.eventDuration']}" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{event.startDate}">
+                                <f:convertDateTime dateStyle="medium" type="date" />
+                            </h:outputText>
+                            <h:outputText value=" - " />
+                            <h:outputText value="#{event.endDate}">
+                                <f:convertDateTime dateStyle="medium" type="date" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:commandButton ajax="false" immediate="true" partialSubmit="true"
+                                             value="#{msg['main.toEvent']}"
+                                             action="#{eventSelectionController.selectEvent(event)}" />
+                            <p:commandButton ajax="false" immediate="true" partialSubmit="true"
+                                             value="#{msg['nav.donate']}"
+                                             rendered="#{event.eventStatus=='ACTIVE'}"
+                                             action="#{eventSelectionController.navigateToDonationPage(event)}" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+        </p:dataGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

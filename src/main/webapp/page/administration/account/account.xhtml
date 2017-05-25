@@ -1,0 +1,66 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/layout.xhtml">
+
+    <ui:define name="content">
+        <h4>
+            <h:outputText value="#{msg['account.header']}" />
+        </h4>
+        <h:form>
+            <p:panelGrid styleClass="smallUploadForm">
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['account.name']}"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{accountController.selectedAccount.username}" rendered="#{accountController.editView}" />
+                        <p:inputText value="#{accountController.selectedAccount.username}" rendered="#{!accountController.editView}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['account.admin']}" />
+                    </p:column>
+                    <p:column>
+                        <p:selectOneMenu value="#{accountController.selectedAccount.accountType}">
+                            <f:selectItems value="#{accountController.accountTypeItems}" />
+                        </p:selectOneMenu>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="2">
+                        <p:separator />
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['account.password']}" rendered="#{!accountController.editView}"/>
+                        <h:outputText value="#{msg['account.newPassword']}" rendered="#{accountController.editView}" />
+                    </p:column> 
+                    <p:column>
+                        <p:inputText type="password" value="#{accountController.password}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['account.passwordConfirm']}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText type="password" value="#{accountController.passwordConfirm}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="2" styleClass="formButtons">
+                        <p:commandButton action="#{accountController.saveAccount()}" value="#{msg['control.save']}" />
+                        <p:commandButton action="#{accountController.cancel()}" 
+                                         ajax="false" value="#{msg['control.cancel']}" 
+                                         process="@none" immediate="true"/>
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

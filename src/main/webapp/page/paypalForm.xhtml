@@ -1,0 +1,30 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/layout.xhtml">
+    <ui:define name="main-menu"></ui:define>
+
+    <ui:define name="content">
+        <script src="../resources/js/jquery.js" type="text/javascript"></script>
+        <h:panelGroup layout="block" id="div" style="text-align: center">
+            <p><h:outputText value="#{msg['donationPage.paypal.redirectMessage']}" /></p>
+            <form id="paypalForm" action="#{trackerApplication.paypalEndpointHost}/cgi-bin/webscr" method="post">
+                <input type="hidden" name="cmd" value="_donations" />
+                <input type="hidden" name="charset" value="utf-8" />
+                <input type="hidden" name="currency_code" value="EUR" />
+                <input type="hidden" name="amount" value="#{donationController.donation.amount}" />
+                <input type="hidden" name="business" value="#{eventSelectionController.selectedEvent.charityPaypalAdress}" />
+                <input type="hidden" name="item_name" value="#{eventSelectionController.selectedEvent.charityPurpose}" />
+                <input type="hidden" name="invoice" value="#{donationController.getInvoiceString(donationController.donation)}" />
+                <input type="hidden" name="custom" value="#{donationController.donation.id}" />
+                <input type="hidden" name="notify_url" value="#{trackerApplication.currentSystemHost}/api/v1/verification" />
+                <input type="hidden" name="return" value="#{trackerApplication.currentSystemHost}/page/donations.xhtml" />
+                <input type="submit" name="submit" id="fire" value="#{msg['donationPage.paypal.redirectButton']}"/>
+            </form>
+            <script>$(function () {
+                    $('#fire').click()
+                });</script>
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>

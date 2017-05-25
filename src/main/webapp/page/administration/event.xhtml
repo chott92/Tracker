@@ -1,0 +1,119 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/layout.xhtml">
+
+    <ui:define name="content">
+
+        <h4>
+            <h:outputText value="#{msg['event.header']}" />
+        </h4>
+        <h:form>
+            
+            <p:panelGrid styleClass="smallUploadForm">
+
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['event.eventName']}*" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText value="#{eventController.selectedEvent.name}" 
+                                     required="true"
+                                     requiredMessage="#{msg['required.event.name']}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['event.charityName']}*" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText value="#{eventController.selectedEvent.charityName}"
+                                     required="true"
+                                     requiredMessage="#{msg['required.event.charityName']}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['event.charityHomepage']}*" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText value="#{eventController.selectedEvent.charityHomePage}" 
+                                     required="true"
+                                     requiredMessage="#{msg['required.event.charityHome']}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['event.charityAddress']}*" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText type="email" value="#{eventController.selectedEvent.charityPaypalAdress}"
+                                     required="true"
+                                     requiredMessage="#{msg['required.event.charityPaypal']}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['event.startDate']}*" />
+                    </p:column>
+                    <p:column>
+                        <p:calendar pattern="dd.MM.yyyy HH:mm" locale="de" navigator="true"
+                                    value="#{eventController.selectedEvent.startDate}"
+                                    required="true"
+                                    requiredMessage="#{msg['required.event.startDate']}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['event.endDate']}*"/>
+                    </p:column>
+                    <p:column>
+                        <p:calendar pattern="dd.MM.yyyy HH:mm" locale="de" navigator="true"
+                                    value="#{eventController.selectedEvent.endDate}"
+                                    required="true"
+                                    requiredMessage="#{msg['required.event.endDate']}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['event.minDonation']}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText type="number" value="#{eventController.selectedEvent.minDonation}"
+                                     required="true"
+                                     requiredMessage="#{msg['required.incentive.target']}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['event.charityPurpose']}*" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText value="#{eventController.selectedEvent.charityPurpose}"
+                                     required="true"
+                                     requiredMessage="#{msg['required.event.purpose']}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['event.description']}"/>
+                    </p:column>
+                    <p:column>
+                        <p:inputTextarea value="#{eventController.selectedEvent.description}" rows="4"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="2" styleClass="formButtons">
+                        <h:outputText value="#{msg['misc.required']}" />
+                        <p:spacer width="20" />
+                        <p:commandButton action="#{eventController.saveEvent()}" value="#{msg['control.save']}" ajax="false" />
+                        <p:commandButton action="#{eventController.cancel()}" 
+                                         ajax="false" value="#{msg['control.cancel']}" 
+                                         process="@none" immediate="true"/>
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

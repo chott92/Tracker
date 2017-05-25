@@ -1,0 +1,46 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <p:dataTable id="scheduleTable"
+                                 widgetVar="schedule-table"
+                                 value="#{gameOverviewController.eventSchedule}"
+                                 var="game"
+                                 rowIndexVar="idx" editable="#{loginBean.loggedIn}" editMode="cell">
+                        <p:column headerText="#{msg['game.beginTime']}" width="200">
+                            <h:outputText value="#{game.startTime}" />
+                        </p:column>
+                        <p:column headerText="#{msg['game.name']}" width="600">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{game.name}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{game.name}" /></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="#{msg['game.category']}" width="250">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{game.category}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{game.category}" /></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="#{msg['game.runner']}" width="350">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{game.runner}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{game.runner}" /></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="#{msg['game.estimate']}" width="100">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{gameOverviewController.getEstimateString(game.estimateMinutes)}" /></f:facet>
+                                <f:facet name="input"><p:inputText type="number" value="#{game.estimateMinutes}" /></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="#{msg['game.setup']}" width="100">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{gameOverviewController.getEstimateString(game.estimateSetup)}" /></f:facet>
+                                <f:facet name="input"><p:inputText type="number" value="#{game.estimateSetup}" /></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                    </p:dataTable>
+    
+</ui:composition>

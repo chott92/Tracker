@@ -1,0 +1,70 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/layout.xhtml">
+
+    <ui:define name="content">
+        <h4>
+            <h:outputText value="#{msg['incentive.editHeader']}" />
+        </h4>
+
+        <h:form prependId="false" id="incentiveForm">
+            <p:panelGrid styleClass="smallUploadForm">
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['donation.timestamp']}*"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{incentiveAssignController.donation.donationDate}">
+                            <f:convertDateTime pattern="dd.MM.yyyy hh:mm:ss"/>
+                        </h:outputText>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['donation.donatorName']}"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{incentiveAssignController.donation.donator.name}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['donation.amount']}"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{incentiveAssignController.donation.amount}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['Donation.comment']}"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{incentiveAssignController.donation.message}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['incentive.assign.incentive']}"/>
+                    </p:column>
+                    <p:column>
+                        <p:selectOneMenu id="incentiveSelection" value="#{incentiveAssignController.selectedIncentiveValue}" converter="#{incentiveValueConverter}">
+                            <f:selectItems value="#{incentiveAssignController.values}" var="iv" itemLabel="#{donationIncentiveController.getIncentiveValueLabel(iv)}" itemValue="#{iv}"/>
+                        </p:selectOneMenu>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="2" styleClass="formButtons">
+                        <p:commandButton action="#{incentiveAssignController.assignIncentive()}" value="#{msg['incentive.assign.button']}" ajax="false" />
+                        <p:commandButton action="/page/administration/inceniveAssignOverview.xhtml?faces-redirect=true" 
+                                         ajax="false" value="#{msg['control.cancel']}" 
+                                         process="@none" immediate="true"/>
+
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

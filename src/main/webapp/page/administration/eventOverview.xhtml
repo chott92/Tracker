@@ -1,0 +1,75 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/layout.xhtml">
+
+    <ui:define name="content">
+
+        <h4>
+            <h:outputText value="#{msg['nav.eventAdministration']}" />
+        </h4>
+        <h:form prependId="false">
+            <p:commandButton ajax="false" value="#{msg['control.new']}"
+                             action="/page/administration/event.xhtml"/>
+            <p:dataTable value="#{eventOverviewController.eventList}" var="event"
+                         id="eventTable" widgetVar="event-table"
+                         paginator="true" rows="25" paginatorPosition="bottom"
+                         paginatorAlwaysVisible="false"
+                         paginatorTemplate="#{msg['misc.paginator.template']}"
+                         currentPageReportTemplate="#{msg['misc.paginator.report']}"
+                         rowIndexVar="idx">
+                <p:column headerText="#{msg['event.eventName']}">
+                    <h:outputText value="#{event.name}" />
+                </p:column>
+                <p:column headerText="#{msg['main.eventCharity']}">
+                    <h:outputText value="#{event.charityName}" />
+                </p:column>
+                <p:column headerText="#{msg['main.charityHomepage']}">
+                    <h:outputText value="#{event.charityHomePage}" />
+                </p:column>
+                <p:column headerText="#{msg['main.eventDuration']}">
+                    <h:outputText value="#{event.startDate}">
+                        <f:convertDateTime dateStyle="medium" type="date" />
+                    </h:outputText>
+                    <h:outputText value=" - " />
+                    <h:outputText value="#{event.endDate}">
+                        <f:convertDateTime dateStyle="medium" type="date" />
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="#{msg['event.status']}">
+                    <h:outputText value="#{event.eventStatus.evetStatus}" />
+                </p:column>
+                <p:column>
+                    <p:commandButton ajax="false" immediate="true" partialSubmit="true"
+                                     value="#{msg['main.toEvent']}"
+                                     action="#{eventSelectionController.selectEvent(event)}" />
+                    <p:commandButton ajax="false" value="#{msg['control.edit']}"
+                                     action="/page/administration/event.xhtml">
+                        <f:param name="eventId" value="#{event.id}"/>
+                    </p:commandButton>
+                    <p:commandButton immediate="true" partialSubmit="true" 
+                                     value="#{msg['control.activate']}"
+                                     action="#{eventOverviewController.activateEvent(event)}"
+                                     update="eventTable"
+                                     rendered="#{event.eventStatus=='CLOSED' or event.eventStatus=='CREATED'}"/>
+                    <p:commandButton immediate="true" partialSubmit="true" 
+                                     value="#{msg['control.deactivate']}"
+                                     action="#{eventOverviewController.deactivateEvent(event)}"
+                                     update="eventTable"
+                                     rendered="#{event.eventStatus == 'ACTIVE'}"/>
+                    <p:commandButton immediate="true" partialSubmit="true"
+                                     value="#{msg['event.archiveEvent']}"
+                                     action="#{eventOverviewController.archiveEvent(event)}" 
+                                     update="eventTable">
+                        <p:confirm header="#{msg['event.archiveConfirm.header']}" message="#{msg['event.archiveConfirm.message']}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:confirmDialog global="true">
+            <p:commandButton value="#{msg['control.yes']}" type="button" styleClass="ui-confirmdialog-yes" />
+            <p:commandButton value="#{msg['control.no']}" type="button" styleClass="ui-confirmdialog-no" />
+    </p:confirmDialog>
+    </ui:define>
+</ui:composition>

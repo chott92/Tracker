@@ -1,0 +1,63 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/layout.xhtml">
+
+    <ui:define name="content">
+
+        <h4>
+            <h:outputText value="#{msg['incentive.header']}" />
+        </h4>
+        <h5>
+            <h:outputText value="#{eventSelectionController.selectedEvent.name}" />
+        </h5>
+
+        <h:form prependId="false">
+            <p:dataTable id="incentiveTable"
+                         widgetVar="incentive-table"
+                         value="#{incentiveOverviewController.incentiveList}"
+                         var="incentive"
+                         rowIndexVar="idx">
+                <p:column width="20">
+                    <p:rowToggler rendered="#{incentive.incentiveType!='INCENTIVE'}" />
+                </p:column>
+                <p:column headerText="#{msg['incentive.game']}" width="400">
+                    <h:outputText value="#{incentive.game.name}"/>
+                </p:column>
+                <p:column headerText="#{msg['incentive.name']}" width="400">
+                    <h:outputText value="#{incentive.incentiveName}" />
+                </p:column>
+                <p:column headerText="#{msg['incentive.description']}">
+                    <h:outputText value="#{incentive.description}"/>
+                </p:column>
+                <p:column headerText="#{msg['incentive.currentAmount']}" width="150" style="text-align: right">
+                    <h:outputText value="€" rendered="#{incentive.incentiveType=='INCENTIVE'}"/>
+                    <h:outputText value="#{incentiveOverviewController.getCurrentIncentiveAmount(incentive)}" >
+                        <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="#0.00€"/>
+                    </h:outputText> 
+                </p:column>
+                <p:column headerText="#{msg['incentive.goal']}" width="100" style="text-align: right">
+                    <h:outputText value="€" rendered="#{incentive.incentiveType=='INCENTIVE'}"/>
+                    <h:outputText value="#{incentive.targetAmount}" rendered="#{incentive.incentiveType=='INCENTIVE'}">
+                        <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="#0.00€"/>
+                    </h:outputText>
+                    <h:outputText value="#{msg['incentive.noGoal']}" rendered="#{incentive.incentiveType!='INCENTIVE'}" />
+                </p:column>
+                <p:rowExpansion>
+                    <p:dataTable value="#{incentiveOverviewController.getBidwarValues(incentive)}" var="resInfo" style="max-width: 800px; margin: auto;">
+                        <p:column>
+                            <h:outputText value="#{resInfo.value}" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="€"/>
+                            <h:outputText value="#{incentiveOverviewController.getCurrentIncentiveValueAmount(resInfo)}">
+                                <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="#0.00€"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </p:rowExpansion>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

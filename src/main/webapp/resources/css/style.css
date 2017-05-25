@@ -1,0 +1,110 @@
+@charset "utf-8";
+
+/************* basicLayout ****************/
+
+body{
+    margin:0px!important;
+    background-color: #777777 !important;
+    color: white;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+#main-menu{
+    background-color: #575757;
+    width: 100%;
+    height: 47px;
+}
+
+#main-menu .ui-menuitem-right {
+	float: right;
+	width:200px;
+}
+
+#content{
+    min-height: 450px;
+    margin: 45px 20px 20px;
+    position: relative;
+}
+
+h4 {
+    text-transform: uppercase;
+    font-size: 1.2em;
+    letter-spacing: 0.3em;
+    border-bottom: 1px solid #ffffff;
+    text-align: center;
+    width: 460px;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+h5 {
+    font-size: 1.2em;
+    letter-spacing: 0.3em;
+    text-align: center;
+    width: 460px;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+/************* misc ****************/
+
+.clearfix{
+    clear:both;
+}
+
+/********** PF-Customs *************/
+
+.ui-cell-editor-input{
+    background-color: #575757;
+}
+
+.ui-orderlist-list{
+    width: 800px !important;
+}
+
+
+/************* form ****************/
+
+.smallUploadForm {
+    border:none;
+    margin: 30px auto 20px !important;
+}
+
+.smallUploadForm td:nth-child(1) {
+    width:150px
+}
+
+.smallUploadForm td:nth-child(2) {
+    width:420px;
+}
+
+.smallUploadForm input, .smallUploadForm textarea {
+    width:420px;
+}
+
+.formButtons{
+    border-top: 1px #ffffff solid;
+    text-align: right;
+}
+
+.donationGrid{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.donationGrid td{
+    width:400px;
+}
+
+.donationGrid input, .donationGrid textarea{
+    width:100%
+}
+
+/************* Login ****************/
+
+#user-login{
+    margin: 0 auto;
+    width:350px;
+}

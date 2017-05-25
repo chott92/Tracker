@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/layout.xhtml">
+
+    <f:metadata>
+        <f:event type="preRenderView"
+                 listener="#{loginBean.init()}" />
+    </f:metadata>
+    <ui:define name="content">
+        <p:focus context="user-login" />
+        <p:spacer height="5" />
+        <p:fieldset id="user-login" legend="#{msg['login.loginHeader']}">
+            <h:form id="login-form">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputLabel for="username"
+                                   value="#{msg['login.username']}:" />
+                    <p:inputText id="username" value="#{loginBean.username}"
+                                 required="true" autocomplete="off"
+                                 label="#{msg['login.username']}" />
+                    <h:outputLabel for="password"
+                                   value="#{msg['login.password']}:" />
+                    <p:password id="password" value="#{loginBean.password}"
+                                required="true" autocomplete="off"
+                                label="#{msg['login.password']}" />
+                    <div />
+                    <p:commandButton id="login" value="#{msg['login.submit']}"
+                                     action="#{loginBean.login}" ajax="false" />
+                </h:panelGrid>
+            </h:form>
+        </p:fieldset>
+    </ui:define>
+</ui:composition>

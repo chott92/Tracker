@@ -1,0 +1,123 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/layout.xhtml">
+
+    <!--<f:metadata>
+        <f:event type="preRenderView"
+                 listener="#{eventSelectionController.init()}" />
+    </f:metadata>-->
+    <ui:define name="main-menu"></ui:define>
+
+    <ui:define name="content">
+        <h:panelGroup rendered="#{eventSelectionController.eventSelected}" layout="block">
+            <h4>
+                <h:outputText value="#{msg['donation.donate']}: #{eventSelectionController.selectedEvent.name}" />
+            </h4>
+
+            <p>
+                <h:outputText value="#{msg['donationPage.p.One']}" escape="false" />
+                <a href="http://www.#{eventSelectionController.selectedEvent.charityHomePage}" target="_blank" >#{eventSelectionController.selectedEvent.charityName}</a>
+            </p>
+            <p>
+                <h:outputText value="#{msg['donationPage.p.Two']}" escape="false" />
+            </p>
+            <p>
+                <h:outputText value="#{msg['donationPage.p.Three']}" escape="false" />
+            </p>
+            <p>
+                <h:outputText value="#{msg['donationPage.p.Four']}" escape="false" />
+            </p>
+
+            <p:panel header="Spende">
+                <h:form id="donationForm" prependId="false">
+                    <h:outputText value="#{msg['donation.donatorAlias']}*" />
+                    <br />
+                    <p:inputText value="#{donationController.donation.donatorName}" id="alias" 
+                                 required="true"
+                                 requiredMessage="#{msg['required.donate.alias']}"/>
+                    <br />
+                    <br />
+                    <h:outputText value="#{msg['donation.amount']} " />
+                    <h:outputText value="(#{msg['donation.minAmount']}:" />
+                    <h:outputText value="#{eventSelectionController.selectedEvent.minDonation}€)">
+                        <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="#0.00€"/>
+                    </h:outputText>
+                    <br />
+                    <p:inputText id="numInput" type="number" value="#{donationController.donation.amount}" required="true">
+                    </p:inputText>
+                    <br />
+                    <br />
+                    <h:outputText value="#{msg['Donation.comment']}" id="message"/>
+                    <br />
+                    <p:inputTextarea rows="3" value="#{donationController.donation.message}" />
+                    <br/>
+                    <br />
+                    <br />
+
+                    <h:outputText value="#{msg['misc.required']}" />
+                </h:form>
+            </p:panel>
+            <p:spacer height="20" />
+            <h:panelGroup rendered="#{eventSelectionController.hasIncentives()}">
+                <p:panel header="Incentives (Optional)" id="incentives" toggleable="true">
+                    <h:form id="incentiveAmountForm" prependId="false">
+                        <h:outputText value="#{msg['donationPage.fields.incentive']}" />
+                        <br />
+                        <p:selectOneMenu id="incentiveSelection" value="#{donationIncentiveController.selectedIncentiveValue}" converter="#{incentiveValueConverter}">
+                            <f:selectItems value="#{donationIncentiveController.values}" var="iv" itemLabel="#{donationIncentiveController.getIncentiveValueLabel(iv)}" itemValue="#{iv}"/>
+                            <p:ajax update="incentives" />
+                        </p:selectOneMenu>
+                        <br />
+                        <br />
+                        <h:outputText value="#{msg['donationPage.fields.newValue']}" />
+                        <br />
+                        <h:inputText value="#{donationIncentiveController.selectedIncentiveValue.value}" disabled="#{not donationIncentiveController.displayNewAmount()}" />
+                        <br />
+                        <br />
+                        <h:outputText value="#{msg['donationPage.fields.incentiveAmount']}" />
+                        <br />
+                        <p:inputText value="#{donationIncentiveController.incentiveAmountString}" type="number" label="Betrag"/>
+                        <br />
+
+                        <p:commandButton value="Incentive hinzufügen" action="#{donationIncentiveController.addDIA()}" update="incentives" />
+                        <br />
+                        <h:outputText value="#{msg['donationPage.p.newValueExp']}" />
+
+                        <p:dataTable id="diaTable"
+                                     value="#{donationIncentiveController.diaList}" var="dia">
+                            <p:column headerText="#{msg['donationPage.fields.incentive']}">
+                                <h:outputText value="#{donationIncentiveController.getIncentiveValueLabel(dia.incentiveValue)}" />
+                            </p:column>
+                            <p:column headerText="#{msg['donationPage.fields.amount']}">
+                                <h:outputText value="#{dia.amount}" />
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="#{msg['control.delete']}" process="@this" partialSubmit="true"
+                                                 action="#{donationIncentiveController.removeDIA(dia)}"
+                                                 update="diaTable"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:panel>
+            </h:panelGroup>
+            <h:panelGroup>
+                <h:form>
+                    <p:commandButton value="#{msg['donation.sendDonation']}"
+                                     action="#{donationController.sendPaypalDonation()}"
+                                     rendered="#{eventSelectionController.selectedEvent.eventStatus=='ACTIVE'}"
+                                     process="@this :donationForm"/>
+                </h:form>
+            </h:panelGroup>
+
+        </h:panelGroup>
+        <h:panelGroup rendered="#{!eventSelectionController.eventSelected}" layout="block">
+            <h4>
+                <h:outputText value="#{msg['donation.noEventSelected']}" />
+            </h4>
+        </h:panelGroup>
+        <p:growl globalOnly="true" showDetail="true" showSummary="false" autoUpdate="true" />
+    </ui:define>
+
+</ui:composition>

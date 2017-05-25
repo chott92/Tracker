@@ -1,0 +1,54 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/layout.xhtml">
+
+    <ui:define name="content">
+
+        <h4>
+            <h:outputText value="#{msg['incentive.header']}" />
+        </h4>
+        <h5>
+            <h:outputText value="#{eventSelectionController.selectedEvent.name}" />
+        </h5>
+
+        <h:form prependId="false" id="incentiveForm">
+            <p:commandButton ajax="false" value="#{msg['control.new']}"
+                             action="/page/administration/incentive.xhtml"/>
+            <p:dataTable id="incentiveTable"
+                         widgetVar="incentive-table"
+                         value="#{incentiveOverviewController.incentiveList}"
+                         var="incentive"
+                         rowIndexVar="idx">
+                <p:column headerText="#{msg['incentive.game']}">
+                    <h:outputText value="#{incentive.game.name}"/>
+                </p:column>
+                <p:column headerText="#{msg['incentive.name']}">
+                    <h:outputText value="#{incentive.incentiveName}" />
+                </p:column>
+                <p:column headerText="#{msg['incentive.description']}">
+                    <h:outputText value="#{incentive.description}"/>
+                </p:column>
+                <p:column headerText="#{msg['incentive.incentiveType']}">
+                    <h:outputText value="#{incentive.incentiveType.type}"/>
+                </p:column>
+                <p:column>
+                    <p:commandButton process="@this" partialSubmit="true" ajax="false" value="#{msg['control.edit']}"
+                                     action="/page/administration/incentive.xhtml">
+                        <f:param name="incentiveId" value="#{incentive.id}" />
+                    </p:commandButton>
+                    <p:commandButton process="@this" partialSubmit="true" update=":incentiveForm" 
+                                     action="#{incentiveOverviewController.deleteIncentive(incentive)}"
+                                     value="#{msg['control.delete']}">
+                        <p:confirm header="#{msg['incentive.deleteConfirm.header']}" message="#{msg['incentive.deleteConfirm.message']}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:confirmDialog global="true">
+            <p:commandButton value="#{msg['control.yes']}" type="button" styleClass="ui-confirmdialog-yes" />
+            <p:commandButton value="#{msg['control.no']}" type="button" styleClass="ui-confirmdialog-no" />
+        </p:confirmDialog>
+    </ui:define>
+</ui:composition>

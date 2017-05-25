@@ -1,0 +1,55 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/layout.xhtml">
+
+    <ui:define name="content">
+
+        <h4>
+            <h:outputText value="#{msg['incentive.assign.header']}" />
+        </h4>
+        <h:form prependId="false">
+            <p:dataTable id="incentiveAssignTable"
+                         value="#{incentiveAssignOverviewController.unassignedDonations}"
+                         var="donation"
+                         paginator="true" rows="25" paginatorPosition="bottom"
+                         paginatorAlwaysVisible="false"
+                         paginatorTemplate="#{msg['misc.paginator.template']}"
+                         currentPageReportTemplate="#{msg['misc.paginator.report']}"
+                         rowIndexVar="idx">
+                <p:column styleClass="rowToggler" exportable="false"
+                          width="20" toggleable="false" >
+                    <p:rowToggler />
+                </p:column>
+                <p:column headerText="#{msg['donation.donatorName']}">
+                    <h:outputText value="#{donation.donatorName}" />
+                </p:column>
+                <p:column headerText="#{msg['donation.timestamp']}">
+                    <h:outputText value="#{donation.donationDate}">
+                        <f:convertDateTime pattern="dd.MM.yyyy hh:mm:ss"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="#{msg['donation.amount']}">
+                    <h:outputText value="#{donation.amount}">
+                        <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="#0.00€"/>
+                    </h:outputText>
+                </p:column>
+                <p:column>
+                    <p:commandButton process="@this" partialSubmit="true" ajax="false" value="#{msg['incentive.assign.button']}"
+                                     action="/page/administration/incentiveAssign.xhtml">
+                        <f:param name="donationId" value="#{donation.id}" />
+                    </p:commandButton>
+                </p:column>
+                <p:rowExpansion>
+                    <p>
+                        <h:outputText value="#{msg['Donation.comment']}:" />
+                    </p>
+                    <p>
+                        <h:outputText value="#{donation.message}" />
+                    </p>
+                </p:rowExpansion>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

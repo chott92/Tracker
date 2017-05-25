@@ -1,0 +1,48 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/layout.xhtml">
+                    
+    <ui:define name="content">
+        <h4>
+            <h:outputText value="#{msg['donation.header']}" />
+        </h4>
+        <p:panelGrid>
+            <p:row>
+                <p:column>
+                    <h:outputText value="#{msg['donation.donatorName']}" />
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{donationController.donation.donator.name}" />
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column>
+                    <h:outputText value="#{msg['donation.amount']}" />
+                </p:column>
+                <p:column>
+                    <h:outputText value="€#{donationController.donation.amount}"/>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column>
+                    <h:outputText value="#{msg['donation.timestamp']}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{donationController.donation.donationDate}">
+                        <f:convertDateTime pattern="dd.MM.yyyy hh:mm:ss"/>
+                    </h:outputText>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column>
+                    <h:outputText value="#{msg['Donation.comment']}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{donationController.donation.message}" />
+                </p:column>
+            </p:row>
+        </p:panelGrid>
+    </ui:define>
+</ui:composition>
