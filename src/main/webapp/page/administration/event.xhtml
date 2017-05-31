@@ -104,6 +104,14 @@
                     </p:column>
                 </p:row>
                 <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg['event.displayIncentive']}"/>
+                    </p:column>
+                    <p:column>
+                        <p:selectBooleanCheckbox value="#{eventController.selectedEvent.displayIncentives}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
                     <p:column colspan="2" styleClass="formButtons">
                         <h:outputText value="#{msg['misc.required']}" />
                         <p:spacer width="20" />

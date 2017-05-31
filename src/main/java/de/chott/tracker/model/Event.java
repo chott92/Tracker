@@ -35,6 +35,8 @@ public class Event extends BaseEntity{
     
     private float minDonation;
     
+    private boolean displayIncentives;
+    
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date startDate;
     
@@ -125,6 +127,14 @@ public class Event extends BaseEntity{
 
     public void setMinDonation(float minDonation) {
         this.minDonation = minDonation;
+    }
+
+    public boolean isDisplayIncentives() {
+        return displayIncentives;
+    }
+
+    public void setDisplayIncentives(boolean displayIncentives) {
+        this.displayIncentives = displayIncentives;
     }
     
 }

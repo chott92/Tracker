@@ -108,6 +108,22 @@ h5 {
     margin-right: auto;
 }
 
+.donateForm input, .donateForm textarea {
+    width:510px;
+}
+
+.donatePage p {
+    width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.donateFormButton{
+    width:570px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: right;
+}
+
 /************* Login ****************/
 
 #user-login{

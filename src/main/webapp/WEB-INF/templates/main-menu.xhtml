@@ -14,7 +14,7 @@
             <p:menuitem value="#{msg['nav.donatorOverview']}" ajax="false"
                         url="/page/donators.xhtml?eventId=#{eventSelectionController.selectedEvent.id}" rendered="#{eventSelectionController.eventSelected}"/>
             <p:menuitem value="#{msg['nav.incentiveOverview']}" ajax="false"
-                        url="/page/incentives.xhtml?eventId=#{eventSelectionController.selectedEvent.id}" rendered="#{eventSelectionController.eventSelected}"/>
+                        url="/page/incentives.xhtml?eventId=#{eventSelectionController.selectedEvent.id}" rendered="#{eventSelectionController.eventSelected and eventSelectionController.selectedEvent.displayIncentives}"/>
             <p:menuitem value="#{msg['nav.schedule']}" ajax="false"
                         url="/page/schedule.xhtml?eventId=#{eventSelectionController.selectedEvent.id}" rendered="#{eventSelectionController.eventSelected}"/>
             <p:menuitem value="#{msg['nav.donate']}" ajax="false"
