@@ -23,7 +23,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 /**
  *
@@ -81,7 +80,7 @@ public class DonationController {
         }
         
         if (donation.getAmount()<eventSelectionController.getSelectedEvent().getMinDonation()){
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, messageProvider.getString("validate.donate.amountLessThenEventMin"), ""));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, messageProvider.getString("validate.donate.amountLessThenEventMin"), "Angegebener Betrag: " + donation.getAmount() + " von " + donation.getDonatorName()));
             return null;
         }
         

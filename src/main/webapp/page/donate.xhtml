@@ -103,12 +103,12 @@
                 </p:panel>
             </h:panelGroup>
             <h:panelGroup layout="block" styleClass="donateFormButton">
-                <h:form>
+                
                     <p:commandButton value="#{msg['donation.sendDonation']}"
                                      action="#{donationController.sendPaypalDonation()}"
                                      rendered="#{eventSelectionController.selectedEvent.eventStatus=='ACTIVE'}"
-                                     process="@this :donationForm"/>
-                </h:form>
+                                     process=":donationForm @this"/>
+               
             </h:panelGroup>
 
         </h:panelGroup>

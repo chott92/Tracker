@@ -5,6 +5,7 @@
  */
 package de.chott.tracker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.chott.tracker.enums.DonationState;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -43,9 +44,11 @@ public class Donation extends BaseEntity {
     private String message;
     
     @ManyToOne
+    @JsonIgnore
     private Donator donator;
     
     @ManyToOne
+    @JsonIgnore
     private Event event;
 
     @Enumerated(EnumType.STRING)
