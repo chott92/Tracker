@@ -28,6 +28,7 @@ public class AccessController implements PhaseListener {
     
     @Override
     public void afterPhase(PhaseEvent event) {
+        
         String loginRequiredPattern = "/page/administration/.+";
         String adminRequiredPattern = "/page/administration/account/.+";
         

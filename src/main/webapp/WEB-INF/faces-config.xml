@@ -6,15 +6,14 @@
     <application>
         <message-bundle>messages</message-bundle>
         <locale-config>
-            <default-locale>de</default-locale>
-            <supported-locale>en</supported-locale>
+            <default-locale>en</default-locale>
             <supported-locale>de</supported-locale>
         </locale-config>
         <resource-bundle>
             <base-name>messages</base-name>
             <var>msg</var>
         </resource-bundle>
-    </application>
+        </application>
     <lifecycle>
 		<phase-listener>de.chott.tracker.admin.login.AccessController</phase-listener>
 	</lifecycle>
