@@ -10,18 +10,16 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import org.omnifaces.util.Faces;
 
-/**
- *
- * @author cot
- */
 @Named
 @RequestScoped
 public class MessageProvider {
 
 	private static final String MESSAGEBUNDLE = "messages";
+	private static final String GERMAN_MESSAGEBUNDLE = "german";
 
 	private Locale locale;
 	private ResourceBundle resourceBundle;
@@ -33,7 +31,7 @@ public class MessageProvider {
 	@PostConstruct
 	public void init() {
 		if (Faces.getFaceletContext() != null) {
-			locale = Faces.getLocale();
+			locale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
 		} else {
 			// if the request is from the rest webservice, there is no locale
 			locale = Locale.getDefault();
@@ -48,7 +46,12 @@ public class MessageProvider {
 	 * @return current ResourceBundle
 	 */
 	private ResourceBundle getResourceBundle() {
-		return ResourceBundle.getBundle(MESSAGEBUNDLE, locale);
+        
+        if (locale.getLanguage().equals(Locale.GERMAN.getLanguage())){
+            return ResourceBundle.getBundle(GERMAN_MESSAGEBUNDLE, locale);
+        } else {
+            return ResourceBundle.getBundle(MESSAGEBUNDLE, locale);
+        }
 	}
 
 	/**
