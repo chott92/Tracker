@@ -27,7 +27,7 @@
                 </p:column>
                 <p:column headerText="#{msg['donation.timestamp']}">
                     <h:outputText value="#{donation.donationDate}">
-                        <f:convertDateTime pattern="dd.MM.yyyy hh:mm:ss"/>
+                        <f:convertDateTime pattern="dd.MM.yyyy hh:mm:ss" timeZone="CET"/>
                     </h:outputText>
                 </p:column>
                 <p:column headerText="#{msg['donation.amount']}">

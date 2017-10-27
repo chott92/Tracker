@@ -24,7 +24,7 @@
                 </p:column>
                 <p:column headerText="#{msg['account.lastLogin']}">
                     <h:outputText value="#{account.lastLogin}">
-                        <f:convertDateTime pattern="dd.MM.yyyy hh:mm:ss"/>
+                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" timeZone="CET"/>
                     </h:outputText>
                 </p:column>
                 <p:column style="width:300px;">

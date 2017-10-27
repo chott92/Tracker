@@ -30,11 +30,11 @@
                 </p:column>
                 <p:column headerText="#{msg['main.eventDuration']}">
                     <h:outputText value="#{event.startDate}">
-                        <f:convertDateTime dateStyle="medium" type="date" />
+                        <f:convertDateTime dateStyle="medium" type="date" timeZone="CET" />
                     </h:outputText>
                     <h:outputText value=" - " />
                     <h:outputText value="#{event.endDate}">
-                        <f:convertDateTime dateStyle="medium" type="date" />
+                        <f:convertDateTime dateStyle="medium" type="date" timeZone="CET" />
                     </h:outputText>
                 </p:column>
                 <p:column headerText="#{msg['event.status']}">
