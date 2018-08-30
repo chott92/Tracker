@@ -107,13 +107,14 @@ public class IncentiveController {
             }
         } else {
 
-            incentive = incentiveService.save(incentive);
-
             if (incentive.getId() == 0) {
+                incentive = incentiveService.save(incentive);
                 IncentiveValue iv = new IncentiveValue();
                 iv.setValue("Ziel");
                 iv.setIncentive(incentive);
                 incentiveService.saveIncentiveValue(iv);
+            }else {
+                incentive = incentiveService.save(incentive);
             }
         }
         return "/page/administration/incentiveOverview.xhtml";

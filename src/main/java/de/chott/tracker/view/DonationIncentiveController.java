@@ -109,6 +109,10 @@ public class DonationIncentiveController {
     
     public void addDIA(){
         
+        if (incentiveAmountString<0){
+            incentiveAmountString =0f;
+        }
+        
         donationAmountTotal+=incentiveAmountString;
         
         Donation_IncentiveAmount dia = new Donation_IncentiveAmount();

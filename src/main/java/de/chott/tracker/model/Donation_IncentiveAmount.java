@@ -15,7 +15,7 @@ import javax.persistence.NamedQuery;
  * @author cot
  */
 @Entity
-@NamedQueries({@NamedQuery(name="Donation_IncentiveAmount.getSumByIncentiveAmount", query = "SELECT SUM(dia.amount) FROM Donation_IncentiveAmount dia WHERE dia.incentiveValue = :paramIncentiveValue"),
+@NamedQueries({@NamedQuery(name="Donation_IncentiveAmount.getSumByIncentiveAmount", query = "SELECT SUM(dia.amount) FROM Donation_IncentiveAmount dia WHERE dia.incentiveValue = :paramIncentiveValue and dia.donation.donationState = 'PAID'"),
                @NamedQuery(name="Donation_IncentiveAmount.getByDonation", query = "SELECT dia FROM Donation_IncentiveAmount dia WHERE dia.donation = :paramDonation")})
 public class Donation_IncentiveAmount extends BaseEntity{
     

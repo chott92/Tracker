@@ -53,36 +53,16 @@
             <version>1.19</version>
         </dependency>
         <dependency>
-    <groupId>com.fasterxml.jackson.core</groupId>
-    <artifactId>jackson-annotations</artifactId>
-    <version>2.9.1</version>
-</dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.9.1</version>
+        </dependency>
     </dependencies>
     <repositories>
         <repository>
             <id>prime-repo</id>
             <name>Prime Repo</name>
             <url>http://repository.primefaces.org</url>
-        </repository>
-        <repository>
-            <id>ncrepository</id>
-            <url>http://linuxsvn.wue.nobiscum:8080/archiva/repository/internal/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>ncproxy</id>
-            <url>http://linuxsvn.wue.nobiscum:8080/archiva/repository/proxy/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
         </repository>
     </repositories>
     <build>

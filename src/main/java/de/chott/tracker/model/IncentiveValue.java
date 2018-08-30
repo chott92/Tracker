@@ -18,7 +18,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name="IncentiveValue.getCurrentIncentiveAmountByIncentive", 
-        query="SELECT SUM(dia.amount) FROM IncentiveValue iv, Donation_IncentiveAmount dia WHERE dia.incentiveValue = iv AND iv.incentive = :paramIncentive"),
+        query="SELECT SUM(dia.amount) FROM IncentiveValue iv, Donation_IncentiveAmount dia WHERE dia.incentiveValue = iv AND iv.incentive = :paramIncentive and dia.donation.donationState = 'PAID'"),
     @NamedQuery(name="IncentiveValue.getValuesByIncentive", query = "SELECT iv FROM IncentiveValue iv WHERE iv.incentive = :paramIncentive"),
     @NamedQuery(name="IncentiveValue.getUpcomingValuesByEvent", 
             query="SELECT iv FROM IncentiveValue iv WHERE iv.incentive.game.startTime>=CURRENT_TIMESTAMP AND iv.incentive.event = :paramEvent ORDER BY iv.incentive.game.startTime")
