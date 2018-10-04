@@ -27,7 +27,7 @@ import org.hibernate.annotations.Type;
 			query = "SELECT i FROM Incentive i WHERE i.game.startTime>=CURRENT_TIMESTAMP AND i.incentiveType = 'BID_WAR' AND i.event = :paramEvent")
 	,
 	@NamedQuery(name = "Incentive.findAllUpcomingForEvent",
-			query = "SELECT i FROM Incentive i WHERE i.game.startTime>=CURRENT_TIMESTAMP AND i.event = :paramEvent")
+			query = "SELECT i FROM Incentive i WHERE i.game.startTime>=CURRENT_TIMESTAMP AND i.event = :paramEvent ORDER BY i.game.startTime ASC")
 })
 public class Incentive extends BaseEntity {
 

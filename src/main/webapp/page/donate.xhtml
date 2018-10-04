@@ -30,11 +30,11 @@
                 <h:outputText value="#{msg['donationPage.p.Four']}" escape="false" />
             </p>
 
-            <p:panel header="#{msg['donation.donate']}" style="width:570px" styleClass="donateForm">
+            <p:panel header="#{msg['donation.donate']}" styleClass="donateForm">
                 <h:form id="donationForm" prependId="false">
                     <h:outputText value="#{msg['donation.donatorAlias']}*" />
                     <br />
-                    <p:inputText value="#{donationController.donation.donatorName}" id="alias" 
+                    <p:inputText value="#{donationController.donation.donatorName}" id="alias"
                                  required="true"
                                  requiredMessage="#{msg['required.donate.alias']}"/>
                     <br />
@@ -103,12 +103,12 @@
                 </p:panel>
             </h:panelGroup>
             <h:panelGroup layout="block" styleClass="donateFormButton">
-                
-                    <p:commandButton value="#{msg['donation.sendDonation']}"
-                                     action="#{donationController.sendPaypalDonation()}"
-                                     rendered="#{eventSelectionController.selectedEvent.eventStatus=='ACTIVE'}"
-                                     process=":donationForm @this"/>
-               
+
+				<p:commandButton value="#{msg['donation.sendDonation']}"
+								 action="#{donationController.sendPaypalDonation()}"
+								 rendered="#{eventSelectionController.selectedEvent.eventStatus=='ACTIVE'}"
+								 process=":donationForm @this"/>
+
             </h:panelGroup>
 
         </h:panelGroup>
