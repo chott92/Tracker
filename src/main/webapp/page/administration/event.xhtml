@@ -59,6 +59,7 @@
                     </p:column>
                     <p:column>
                         <p:calendar pattern="dd.MM.yyyy HH:mm" locale="de" navigator="true"
+                                    converter="localDateTimeConverter"
                                     value="#{eventController.selectedEvent.startDate}"
                                     required="true"
                                     requiredMessage="#{msg['required.event.startDate']}"/>
@@ -72,6 +73,7 @@
                         <p:calendar pattern="dd.MM.yyyy HH:mm" locale="de" navigator="true"
                                     value="#{eventController.selectedEvent.endDate}"
                                     required="true"
+                                    converter="localDateTimeConverter"
                                     requiredMessage="#{msg['required.event.endDate']}"/>
                     </p:column>
                 </p:row>

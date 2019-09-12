@@ -7,6 +7,7 @@ package de.chott.tracker.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.chott.tracker.enums.DonationState;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -33,8 +34,7 @@ import javax.persistence.TemporalType;
 })
 public class Donation extends BaseEntity {
     
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date donationDate;
+    private LocalDateTime donationDate;
     
     private float amount;
     
@@ -54,11 +54,11 @@ public class Donation extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private DonationState donationState;
     
-    public Date getDonationDate() {
+    public LocalDateTime getDonationDate() {
         return donationDate;
     }
 
-    public void setDonationDate(Date donationDate) {
+    public void setDonationDate(LocalDateTime donationDate) {
         this.donationDate = donationDate;
     }
 

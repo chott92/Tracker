@@ -6,6 +6,7 @@
 package de.chott.tracker.model;
 
 import de.chott.tracker.enums.EventStatus;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -37,11 +38,9 @@ public class Event extends BaseEntity{
     
     private boolean displayIncentives;
     
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date startDate;
+    private LocalDateTime startDate;
     
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date endDate;
+    private LocalDateTime endDate;
     
     @Lob
     private String description;
@@ -81,19 +80,19 @@ public class Event extends BaseEntity{
         this.charityPaypalAdress = charityPaypalAdress;
     }
 
-    public Date getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 

@@ -14,6 +14,7 @@ import de.chott.tracker.model.Incentive;
 import de.chott.tracker.model.IncentiveValue;
 import de.chott.tracker.session.EventSelectionController;
 import de.chott.tracker.webapp.utils.MessageProvider;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -89,7 +90,7 @@ public class DonationController {
         
         donation.setAmount(amount);
         donation.setDonationState(DonationState.CREATED);
-        donation.setDonationDate(new Date());
+        donation.setDonationDate(LocalDateTime.now());
         donation.setEvent(eventSelectionController.getSelectedEvent());
         
         donation = donationService.save(donation);

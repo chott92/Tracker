@@ -46,7 +46,7 @@ public class EventController {
     public String saveEvent(){
         
         if (selectedEvent.getStartDate()!=null && selectedEvent.getEndDate() !=null){
-            if(selectedEvent.getEndDate().before(selectedEvent.getStartDate())){
+            if(selectedEvent.getEndDate().isBefore(selectedEvent.getStartDate())){
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                         "Fehler", "Enddatum liegt aktuell vor dem Startdatum!"));
                 return null;

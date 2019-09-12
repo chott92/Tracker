@@ -5,6 +5,7 @@
  */
 package de.chott.tracker.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -35,8 +36,7 @@ public class Game extends BaseEntity {
     
     private int scheduleOrder;
     
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date startTime;
+    private LocalDateTime startTime;
     
     @ManyToOne
     private Event event;
@@ -81,11 +81,11 @@ public class Game extends BaseEntity {
         this.event = event;
     }
 
-    public Date getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 

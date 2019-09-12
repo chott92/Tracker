@@ -5,13 +5,13 @@
  */
 package de.chott.tracker.view;
 
-import de.chott.tracker.boundary.EventService;
 import de.chott.tracker.boundary.GameService;
 import de.chott.tracker.model.Event;
 import de.chott.tracker.model.Game;
 import de.chott.tracker.session.EventSelectionController;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -80,11 +80,11 @@ public class GameOverviewController {
     }
     
     private void adjustGameStartTime(Game target, Game source){
-        Calendar cal = new GregorianCalendar();
-        cal.setTime(source.getStartTime());
-        cal.add(Calendar.MINUTE, source.getEstimateMinutes());
-        cal.add(Calendar.MINUTE, source.getEstimateSetup());
-        target.setStartTime(cal.getTime());
+        LocalDateTime time = source.getStartTime()
+                .plusMinutes(source.getEstimateMinutes())
+                .plusMinutes(source.getEstimateSetup());
+        
+        target.setStartTime(time);
     }
     
     public String getGameLabel (Game g){

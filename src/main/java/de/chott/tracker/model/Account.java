@@ -6,6 +6,8 @@
 package de.chott.tracker.model;
 
 import de.chott.tracker.enums.AccountType;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -24,16 +26,13 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Account.loadByUsername", query = "SELECT a FROM Account a WHERE a.username = :paramUsername")})
 public class Account extends BaseEntity {
     
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
-
+    private LocalDateTime createdDate;
     
     private String username;
     
     private String password;
     
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastLogin;    
+    private LocalDateTime lastLogin;    
 
      @Enumerated(EnumType.STRING)
     private AccountType accountType;
@@ -54,15 +53,15 @@ public class Account extends BaseEntity {
         this.password = password;
     }
 
-    public Date getLastLogin() {
+    public LocalDateTime getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(Date lastLogin) {
+    public void setLastLogin(Date LocalDateTime) {
         this.lastLogin = lastLogin;
     }
 
-    public Date getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
